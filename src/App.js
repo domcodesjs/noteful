@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import Header from './components/Header/Header';
 
 function App() {
   const [store] = useState({
@@ -139,6 +140,7 @@ function App() {
   return (
     <>
       <Router>
+        <Header></Header>
         <Switch>{/* get some routes up in here */}</Switch>
       </Router>
     </>

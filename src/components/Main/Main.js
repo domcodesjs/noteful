@@ -3,7 +3,6 @@ import { useHistory } from 'react-router-dom';
 
 const Main = ({ notes }) => {
   const history = useHistory();
-
   return (
     <ul>
       {notes.map((note, idx) => (

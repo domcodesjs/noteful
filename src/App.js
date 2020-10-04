@@ -157,7 +157,7 @@ function App() {
               <Folder folders={folders} notes={notes}></Folder>
             </Route>
             <Route exact path='/note/:noteId'>
-              <Note></Note>
+              <Note folders={folders} notes={notes}></Note>
             </Route>
             <Route path='/404'>
               <NotFound></NotFound>

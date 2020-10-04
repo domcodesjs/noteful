@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import Main from '../Main/Main';
@@ -7,8 +7,6 @@ import Sidebar from '../Sidebar/Sidebar';
 const Folder = ({ folders, notes }) => {
   const history = useHistory();
   const { folderId } = useParams();
-  const [folderNotes, setFolderNotes] = useState(null);
-  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     checkIfFolderExists();

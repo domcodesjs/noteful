@@ -1,7 +1,13 @@
 import React, { useState } from 'react';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Redirect
+} from 'react-router-dom';
 import Header from './components/Header/Header';
 import Home from './components/Home/Home';
+import Note from './components/Note/Note';
 import Folder from './components/Folder/Folder';
 import NotFound from './components/NotFound/NotFound';
 
@@ -138,8 +144,6 @@ function App() {
   });
   const { folders, notes } = store;
 
-  // console.log(store);
-
   return (
     <>
       <Router>
@@ -152,11 +156,14 @@ function App() {
             <Route exact path='/folder/:folderId'>
               <Folder folders={folders} notes={notes}></Folder>
             </Route>
-            {/* <Route exact path='/note/:noteId'>
-              <Home></Home>
-            </Route> */}
-            <Route>
+            <Route exact path='/note/:noteId'>
+              <Note></Note>
+            </Route>
+            <Route path='/404'>
               <NotFound></NotFound>
+            </Route>
+            <Route>
+              <Redirect to='/404' />
             </Route>
           </Switch>
         </main>

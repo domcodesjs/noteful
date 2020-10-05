@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useHistory } from 'react-router-dom';
 
 const Note = ({ notes }) => {
+  const history = useHistory();
   const { noteId } = useParams();
   const [note, setNote] = useState(null);
 
@@ -9,7 +10,14 @@ const Note = ({ notes }) => {
     setNote(notes.find((note) => note.id === noteId));
   }, [noteId, notes]);
 
-  return <div>{note ? <h1>{note.name}</h1> : null}</div>;
+  return (
+    <div>
+      <button type='button' onClick={history.goBack}>
+        Go Back
+      </button>
+      {note ? <h1>{note.name}</h1> : null}
+    </div>
+  );
 };
 
 export default Note;

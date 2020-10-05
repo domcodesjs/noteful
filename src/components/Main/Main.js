@@ -1,16 +1,17 @@
 import React from 'react';
-import { useHistory } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 const Main = ({ notes }) => {
-  const history = useHistory();
   return (
-    <ul>
-      {notes.map((note, idx) => (
-        <li key={idx} onClick={() => history.push(`/note/${note.id}`)}>
-          {note.name}
-        </li>
-      ))}
-    </ul>
+    <>
+      <ul>
+        {notes.map((note, idx) => (
+          <Link key={idx} to={{ pathname: `/note/${note.id}` }}>
+            <li>{note.name}</li>
+          </Link>
+        ))}
+      </ul>
+    </>
   );
 };
 

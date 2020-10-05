@@ -1,18 +1,13 @@
 import React from 'react';
-import { useHistory } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 const Sidebar = ({ folders }) => {
-  const history = useHistory();
-
   return (
     <ul>
       {folders.map((folder) => (
-        <li
-          key={folder.id}
-          onClick={() => history.push(`/folder/${folder.id}`)}
-        >
-          {folder.name}
-        </li>
+        <Link key={folder.id} to={{ pathname: `/folder/${folder.id}` }}>
+          <li>{folder.name}</li>
+        </Link>
       ))}
     </ul>
   );

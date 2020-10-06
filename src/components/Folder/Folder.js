@@ -19,16 +19,29 @@ const Folder = ({ folders, notes }) => {
   };
 
   return (
-    <StyledMain>
+    <StyledSection>
       <Sidebar folders={folders}></Sidebar>
       <Main notes={notes.filter((note) => note.folderId === folderId)}></Main>
-    </StyledMain>
+    </StyledSection>
   );
 };
 
-const StyledMain = styled.main`
+const StyledSection = styled.section`
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: 24rem auto;
+  height: 100vh;
+  margin: 0 auto;
+
+  ul {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+  }
+
+  a {
+    text-decoration: none;
+    color: inherit;
+  }
 `;
 
 export default Folder;

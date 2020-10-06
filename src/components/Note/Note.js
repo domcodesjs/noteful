@@ -1,21 +1,28 @@
-import React, { useEffect, useState } from 'react';
-import { useParams, useHistory } from 'react-router-dom';
+import React from 'react';
 import styled from 'styled-components';
 
-const Note = ({ notes }) => {
-  const history = useHistory();
-  const { noteId } = useParams();
-  const [note, setNote] = useState(null);
+class Note extends React.Component {
+  state = {
+    note: null
+  };
 
-  useEffect(() => {
-    setNote(notes.find((note) => note.id === noteId));
-  }, [noteId, notes]);
+  componentDidMount() {
+    const { noteId } = this.props.match.params;
+    const note = this.props.notes.find((note) => note.id === noteId);
 
-  const renderNote = () => {
+    if (!note) {
+      return this.props.history.push('/404');
+    }
+
+    return this.setState({ note });
+  }
+
+  renderNote = () => {
+    const { note } = this.state;
     return (
       <StyledSection>
         <aside>
-          <button type='button' onClick={history.goBack}>
+          <button type='button' onClick={this.props.history.goBack}>
             Go Back
           </button>
         </aside>
@@ -27,8 +34,10 @@ const Note = ({ notes }) => {
     );
   };
 
-  return <div>{note ? renderNote() : null}</div>;
-};
+  render() {
+    return <div>{this.state.note ? this.renderNote() : null}</div>;
+  }
+}
 
 const StyledSection = styled.section`
   width: calc(100% - 9.6rem);

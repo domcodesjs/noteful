@@ -1,8 +1,17 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import styled from 'styled-components';
 
-const Sidebar = ({ folders }) => {
+const Sidebar = ({ folders, match }) => {
+  const folderIcon = (id) => {
+    const { folderId } = match.params;
+    return id === folderId ? (
+      <i className='far fa-folder-open'></i>
+    ) : (
+      <i className='far fa-folder'></i>
+    );
+  };
+
   return (
     <StyledAside>
       <nav>
@@ -11,7 +20,7 @@ const Sidebar = ({ folders }) => {
           {folders.map((folder) => (
             <li key={folder.id}>
               <Link to={{ pathname: `/folder/${folder.id}` }}>
-                <i className='far fa-folder'></i>
+                {folderIcon(folder.id)}
                 {folder.name}
               </Link>
             </li>
@@ -51,4 +60,4 @@ const StyledAside = styled.aside`
   }
 `;
 
-export default Sidebar;
+export default withRouter(Sidebar);

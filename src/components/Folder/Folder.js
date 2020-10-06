@@ -1,30 +1,28 @@
-import React, { useEffect } from 'react';
-import { useHistory, useParams } from 'react-router-dom';
+import React from 'react';
 import styled from 'styled-components';
 import Main from '../Main/Main';
 import Sidebar from '../Sidebar/Sidebar';
 
-const Folder = ({ folders, notes }) => {
-  const history = useHistory();
-  const { folderId } = useParams();
-
-  useEffect(() => {
-    checkIfFolderExists();
-  });
-
-  const checkIfFolderExists = () => {
+class Folder extends React.Component {
+  componentDidMount() {
+    const { folders, history } = this.props;
+    const { folderId } = this.props.match.params;
     if (!folders.some((folder) => folder.id === folderId)) {
       return history.push('/404');
     }
-  };
+  }
 
-  return (
-    <StyledSection>
-      <Sidebar folders={folders}></Sidebar>
-      <Main notes={notes.filter((note) => note.folderId === folderId)}></Main>
-    </StyledSection>
-  );
-};
+  render() {
+    const { folders, notes } = this.props;
+    const { folderId } = this.props.match.params;
+    return (
+      <StyledSection>
+        <Sidebar folders={folders}></Sidebar>
+        <Main notes={notes.filter((note) => note.folderId === folderId)}></Main>
+      </StyledSection>
+    );
+  }
+}
 
 const StyledSection = styled.section`
   display: grid;

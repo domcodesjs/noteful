@@ -11,7 +11,7 @@ import Note from './components/Note/Note';
 import Folder from './components/Folder/Folder';
 import NotFound from './components/NotFound/NotFound';
 
-function App(props) {
+function App() {
   const [store] = useState({
     folders: [
       {
@@ -148,15 +148,27 @@ function App(props) {
       <Router>
         <Header></Header>
         <Switch>
-          <Route exact path='/'>
-            <Home folders={folders} notes={notes}></Home>
-          </Route>
-          <Route exact path='/folder/:folderId'>
-            <Folder folders={folders} notes={notes}></Folder>
-          </Route>
-          <Route exact path='/note/:noteId'>
-            <Note folders={folders} notes={notes}></Note>
-          </Route>
+          <Route
+            exact
+            path='/'
+            render={(props) => (
+              <Home {...props} folders={folders} notes={notes} />
+            )}
+          />
+          <Route
+            exact
+            path='/folder/:folderId'
+            render={(props) => (
+              <Folder {...props} folders={folders} notes={notes} />
+            )}
+          />
+          <Route
+            exact
+            path='/note/:noteId'
+            render={(props) => (
+              <Note {...props} folders={folders} notes={notes} />
+            )}
+          />
           <Route path='/404'>
             <NotFound></NotFound>
           </Route>

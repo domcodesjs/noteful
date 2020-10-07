@@ -10,7 +10,8 @@ class Main extends React.Component {
   handleClick = async (id) => {
     try {
       const { deleteNote, notes } = this.context;
-      await fetch(`http://localhost:9090/notes/${id}`, { method: 'DELETE' });
+      // uncomment when we're using a server
+      // await fetch(`http://localhost:9090/notes/${id}`, { method: 'DELETE' });
       deleteNote(id);
       return (this.context = { notes: notes.filter((note) => note.id !== id) });
     } catch (err) {
@@ -126,7 +127,6 @@ const StyledSection = styled.section`
 
       button {
         height: 4.8rem;
-        cursor: pointer;
         margin-left: 0.8rem;
       }
     }

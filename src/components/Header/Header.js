@@ -11,9 +11,9 @@ const Header = () => {
 };
 
 const StyledHeader = styled.header`
-  width: calc(100% - 9.6rem);
+  width: 92rem;
   margin: 0 auto;
-  height: 8rem;
+  height: 12rem;
 
   a {
     text-decoration: none;

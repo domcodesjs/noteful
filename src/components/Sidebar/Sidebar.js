@@ -1,10 +1,13 @@
 import React from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import styled from 'styled-components';
+import ApiContext from '../../ApiContext';
 
-const Sidebar = ({ folders, match }) => {
-  const folderIcon = (id) => {
-    const { folderId } = match.params;
+class Sidebar extends React.Component {
+  static contextType = ApiContext;
+
+  folderIcon = (id) => {
+    const { folderId } = this.props;
     return id === folderId ? (
       <i className='far fa-folder-open'></i>
     ) : (
@@ -12,28 +15,51 @@ const Sidebar = ({ folders, match }) => {
     );
   };
 
-  return (
-    <StyledAside>
-      <nav>
-        <h3>Folders</h3>
-        <ul>
-          {folders.map((folder) => (
-            <li key={folder.id}>
-              <Link to={{ pathname: `/folder/${folder.id}` }}>
-                {folderIcon(folder.id)}
-                {folder.name}
-              </Link>
+  allFolderIcon = () => {
+    const { path } = this.props.match;
+    return path === '/' ? (
+      <i className='far fa-folder-open'></i>
+    ) : (
+      <i className='far fa-folder'></i>
+    );
+  };
+
+  render() {
+    const { folders } = this.context;
+    return (
+      <StyledAside>
+        <button className='nes-btn'>
+          <i className='fas fa-plus'></i> Folder
+        </button>
+        <nav>
+          <ul>
+            <li>
+              <Link to='/'>{this.allFolderIcon()}All</Link>
             </li>
-          ))}
-        </ul>
-      </nav>
-    </StyledAside>
-  );
-};
+            {folders.map((folder) => (
+              <li key={folder.id}>
+                <Link to={{ pathname: `/folder/${folder.id}` }}>
+                  {this.folderIcon(folder.id)}
+                  {folder.name}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </nav>
+      </StyledAside>
+    );
+  }
+}
 
 const StyledAside = styled.aside`
-  padding: 4.8rem 0 0 3.2rem;
+  button {
+    width: 100%;
+    height: 4.8rem;
+  }
+
   nav {
+    margin-top: 3.2rem;
+
     h3 {
       margin: 0 auto 1.6rem 0;
     }

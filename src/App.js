@@ -13,6 +13,7 @@ import Folder from './components/Folder/Folder';
 import NotFound from './components/NotFound/NotFound';
 import AddNote from './components/AddNote/AddNote';
 import AddFolder from './components/AddFolder/AddFolder';
+import ErrorBoundary from './components/ErrorBoundary/ErrorBoundary';
 
 const API_URL = 'http://localhost:9090';
 
@@ -86,31 +87,37 @@ class App extends React.Component {
               addFolder: handleAddFolder
             }}
           >
-            <Switch>
-              <Route exact path='/' render={(props) => <Folder {...props} />} />
-              <Route
-                exact
-                path='/folder/:folderId'
-                render={(props) => <Folder {...props} />}
-              />
-              <Route
-                exact
-                path='/add-note'
-                render={(props) => <AddNote {...props} />}
-              />
-              <Route
-                exact
-                path='/add-folder'
-                render={(props) => <AddFolder {...props} />}
-              />
-              <Route
-                exact
-                path='/note/:noteId'
-                render={(props) => <Note {...props} />}
-              />
-              <Route path='/404' component={NotFound} />
-              <Redirect to='/404' />
-            </Switch>
+            <ErrorBoundary>
+              <Switch>
+                <Route
+                  exact
+                  path='/'
+                  render={(props) => <Folder {...props} />}
+                />
+                <Route
+                  exact
+                  path='/folder/:folderId'
+                  render={(props) => <Folder {...props} />}
+                />
+                <Route
+                  exact
+                  path='/add-note'
+                  render={(props) => <AddNote {...props} />}
+                />
+                <Route
+                  exact
+                  path='/add-folder'
+                  render={(props) => <AddFolder {...props} />}
+                />
+                <Route
+                  exact
+                  path='/note/:noteId'
+                  render={(props) => <Note {...props} />}
+                />
+                <Route path='/404' component={NotFound} />
+                <Redirect to='/404' />
+              </Switch>
+            </ErrorBoundary>
           </ApiContext.Provider>
         </Router>
       </StyledDiv>

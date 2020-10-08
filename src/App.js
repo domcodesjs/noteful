@@ -15,7 +15,7 @@ import AddNote from './components/AddNote/AddNote';
 import AddFolder from './components/AddFolder/AddFolder';
 import ErrorBoundary from './components/ErrorBoundary/ErrorBoundary';
 
-const API_URL = 'http://localhost:9090';
+const API_URL = 'https://noteful-json-server.vercel.app';
 
 class App extends React.Component {
   state = {

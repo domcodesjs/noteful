@@ -36,7 +36,7 @@ class AddNoteForm extends React.Component {
 
     try {
       const { addNote, notes } = this.context;
-      const res = await fetch('http://localhost:9090/notes', {
+      const res = await fetch('https://noteful-json-server.vercel.app/notes', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

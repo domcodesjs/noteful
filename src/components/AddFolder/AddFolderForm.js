@@ -22,13 +22,16 @@ class AddFolderForm extends React.Component {
 
     try {
       const { addFolder, folders } = this.context;
-      const res = await fetch('http://localhost:9090/folders', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ name })
-      });
+      const res = await fetch(
+        'https://noteful-json-server.vercel.app/folders',
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ name })
+        }
+      );
       const newFolder = await res.json();
       addFolder(newFolder);
       this.context = {

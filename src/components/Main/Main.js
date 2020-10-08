@@ -11,7 +11,9 @@ class Main extends React.Component {
   handleClick = async (id) => {
     try {
       const { deleteNote, notes } = this.context;
-      await fetch(`http://localhost:9090/notes/${id}`, { method: 'DELETE' });
+      await fetch(`https://noteful-json-server.vercel.app/notes/${id}`, {
+        method: 'DELETE'
+      });
       deleteNote(id);
       return (this.context = {
         ...this.context,

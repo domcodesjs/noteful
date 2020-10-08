@@ -3,47 +3,37 @@ import { withRouter } from 'react-router-dom';
 import styled from 'styled-components';
 import ApiContext from '../../ApiContext';
 
-class AddNoteForm extends React.Component {
+class AddFolderForm extends React.Component {
   static contextType = ApiContext;
   state = {
-    name: '',
-    content: '',
-    folderId: ''
+    name: ''
   };
 
   handleSubmit = async (e) => {
     e.preventDefault();
 
-    const { name, content, folderId } = this.state;
+    const { name } = this.state;
 
     if (!name || name.trim() === '') {
       return;
     }
 
-    if (!content || content.trim() === '') {
-      return;
-    }
-
-    if (!folderId || folderId.trim() === '') {
-      return;
-    }
-
     try {
-      const { addNote, notes } = this.context;
-      const res = await fetch('http://localhost:9090/notes', {
+      const { addFolder, folders } = this.context;
+      const res = await fetch('http://localhost:9090/folders', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ name, content, folderId, modified: new Date() })
+        body: JSON.stringify({ name })
       });
-      const newNote = await res.json();
-      addNote(newNote);
+      const newFolder = await res.json();
+      addFolder(newFolder);
       this.context = {
         ...this.context,
-        notes: { notes: [...notes, newNote] }
+        folders: { folders: [...folders, newFolder] }
       };
-      return this.props.history.push(`/folder/${folderId}`);
+      return this.props.history.push(`/folder/${newFolder.id}`);
     } catch (err) {
       console.error(err);
     }
@@ -51,8 +41,7 @@ class AddNoteForm extends React.Component {
 
   render() {
     const { handleSubmit } = this;
-    const { name, content } = this.state;
-    const { folders } = this.context;
+    const { name } = this.state;
 
     return (
       <StyledForm onSubmit={handleSubmit}>
@@ -64,28 +53,6 @@ class AddNoteForm extends React.Component {
           value={name}
           onChange={(e) => this.setState({ name: e.target.value })}
         />
-        <label htmlFor='content'>Content:</label>
-        <textarea
-          id='content'
-          className='nes-textarea'
-          value={content}
-          onChange={(e) => this.setState({ content: e.target.value })}
-        />
-        <label htmlFor='folder'>Folder:</label>
-        <div className='nes-select'>
-          <select
-            id='folder'
-            defaultValue={''}
-            onChange={(e) => this.setState({ folderId: e.target.value })}
-          >
-            <option disabled value={''}></option>
-            {folders.map((folder) => (
-              <option key={folder.id} value={folder.id}>
-                {folder.name}
-              </option>
-            ))}
-          </select>
-        </div>
         <ButtonDiv>
           <button
             type='button'
@@ -128,4 +95,4 @@ const StyledForm = styled.form`
   }
 `;
 
-export default withRouter(AddNoteForm);
+export default withRouter(AddFolderForm);

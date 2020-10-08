@@ -28,7 +28,10 @@ class Sidebar extends React.Component {
     const { folders } = this.context;
     return (
       <StyledAside>
-        <button className='nes-btn'>
+        <button
+          className='nes-btn'
+          onClick={() => this.props.history.push('/add-folder')}
+        >
           <i className='fas fa-plus'></i> Folder
         </button>
         <nav>

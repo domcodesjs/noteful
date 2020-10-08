@@ -1,13 +1,13 @@
 import React from 'react';
 import styled from 'styled-components';
-import AddNoteForm from './AddNoteForm';
+import AddFolderForm from './AddFolderForm';
 
-class AddNote extends React.Component {
+class AddFolder extends React.Component {
   render() {
     return (
       <StyledDiv>
-        <h2>Add Note</h2>
-        <AddNoteForm></AddNoteForm>
+        <h2>Add Folder</h2>
+        <AddFolderForm></AddFolderForm>
       </StyledDiv>
     );
   }
@@ -20,4 +20,4 @@ const StyledDiv = styled.div`
   }
 `;
 
-export default AddNote;
+export default AddFolder;

@@ -12,6 +12,7 @@ import Note from './components/Note/Note';
 import Folder from './components/Folder/Folder';
 import NotFound from './components/NotFound/NotFound';
 import AddNote from './components/AddNote/AddNote';
+import AddFolder from './components/AddFolder/AddFolder';
 
 const API_URL = 'http://localhost:9090';
 
@@ -62,9 +63,13 @@ class App extends React.Component {
     return this.setState({ notes: [...this.state.notes, note] });
   };
 
+  handleAddFolder = (folder) => {
+    return this.setState({ folders: [...this.state.folders, folder] });
+  };
+
   render() {
     const { loading, notes, folders } = this.state;
-    const { handleDeleteNote, handleAddNote } = this;
+    const { handleDeleteNote, handleAddNote, handleAddFolder } = this;
 
     return loading ? (
       <p>loading</p>
@@ -77,7 +82,8 @@ class App extends React.Component {
               notes,
               folders,
               deleteNote: handleDeleteNote,
-              addNote: handleAddNote
+              addNote: handleAddNote,
+              addFolder: handleAddFolder
             }}
           >
             <Switch>
@@ -91,6 +97,11 @@ class App extends React.Component {
                 exact
                 path='/add-note'
                 render={(props) => <AddNote {...props} />}
+              />
+              <Route
+                exact
+                path='/add-folder'
+                render={(props) => <AddFolder {...props} />}
               />
               <Route
                 exact

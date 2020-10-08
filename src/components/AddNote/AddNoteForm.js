@@ -9,24 +9,29 @@ class AddNoteForm extends React.Component {
   state = {
     name: '',
     content: '',
-    folderId: ''
+    folderId: '',
+    nameError: null,
+    contentError: null,
+    folderIdError: null
   };
 
   handleSubmit = async (e) => {
     e.preventDefault();
-
     const { name, content, folderId } = this.state;
 
+    this.setState({ nameError: null });
     if (!name || name.trim() === '') {
-      return;
+      return this.setState({ nameError: 'Must enter a valid note name' });
     }
 
+    this.setState({ contentError: null });
     if (!content || content.trim() === '') {
-      return;
+      return this.setState({ contentError: 'Must enter valid content' });
     }
 
+    this.setState({ folderIdError: null });
     if (!folderId || folderId.trim() === '') {
-      return;
+      return this.setState({ folderIdError: 'Must select a folder' });
     }
 
     try {
@@ -44,6 +49,11 @@ class AddNoteForm extends React.Component {
         ...this.context,
         notes: { notes: [...notes, newNote] }
       };
+      this.setState({
+        nameError: false,
+        contentError: false,
+        folderIdError: false
+      });
       return this.props.history.push(`/folder/${folderId}`);
     } catch (err) {
       console.error(err);
@@ -52,7 +62,13 @@ class AddNoteForm extends React.Component {
 
   render() {
     const { handleSubmit } = this;
-    const { name, content } = this.state;
+    const {
+      name,
+      content,
+      nameError,
+      contentError,
+      folderIdError
+    } = this.state;
     const { folders } = this.context;
 
     return (
@@ -65,14 +81,22 @@ class AddNoteForm extends React.Component {
           value={name}
           onChange={(e) => this.setState({ name: e.target.value })}
         />
-        <label htmlFor='content'>Content:</label>
+        {nameError ? (
+          <p className='nes-text is-error error'>
+            Must enter a valid note name
+          </p>
+        ) : null}
+        <label htmlFor='content'>Content</label>
         <textarea
           id='content'
           className='nes-textarea'
           value={content}
           onChange={(e) => this.setState({ content: e.target.value })}
         />
-        <label htmlFor='folder'>Folder:</label>
+        {contentError ? (
+          <p className='nes-text is-error error'>Must enter valid content</p>
+        ) : null}
+        <label htmlFor='folder'>Folder</label>
         <div className='nes-select'>
           <select
             id='folder'
@@ -87,6 +111,9 @@ class AddNoteForm extends React.Component {
             ))}
           </select>
         </div>
+        {folderIdError ? (
+          <p className='nes-text is-error error'>Must select a folder</p>
+        ) : null}
         <ButtonDiv>
           <button
             type='button'
@@ -107,6 +134,8 @@ class AddNoteForm extends React.Component {
 const ButtonDiv = styled.div`
   display: flex;
   justify-content: space-between;
+  margin-top: 1.6rem;
+
   button {
     width: 48%;
   }
@@ -115,12 +144,23 @@ const ButtonDiv = styled.div`
 const StyledForm = styled.form`
   display: flex;
   flex-direction: column;
+
+  .error {
+    font-size: 1.3rem;
+  }
+
+  label:not(:first-child) {
+    margin-top: 1.6rem;
+  }
+
   input {
     height: 4.8rem;
   }
 
+  textarea {
+  }
+
   button {
-    margin-top: 1.6rem;
     height: 4.8rem;
   }
 

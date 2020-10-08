@@ -40,7 +40,7 @@ class Note extends React.Component {
     const { note } = this.state;
     const { handleClick } = this;
     return (
-      <StyledSection className='nes-container'>
+      <StyledSection>
         <aside>
           <button
             type='button'
@@ -50,7 +50,7 @@ class Note extends React.Component {
             Go Back
           </button>
         </aside>
-        <main className='nes-container with-title'>
+        <main>
           <div className='nes-container'>
             <h1>{note.name}</h1>
             <p>
@@ -64,7 +64,7 @@ class Note extends React.Component {
               Delete
             </button>
           </div>
-          <p>{note.content}</p>
+          <p className='note-content'>{note.content}</p>
         </main>
       </StyledSection>
     );
@@ -77,10 +77,15 @@ class Note extends React.Component {
 }
 
 const StyledSection = styled.section`
-  width: calc(100% - 9.6rem);
   margin: 0 auto;
   display: grid;
   grid-template-columns: 20% 80%;
+
+  main {
+    .note-content {
+      margin-top: 2.4rem;
+    }
+  }
 `;
 
 Note.propTypes = {

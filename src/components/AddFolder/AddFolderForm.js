@@ -7,16 +7,17 @@ import ApiContext from '../../ApiContext';
 class AddFolderForm extends React.Component {
   static contextType = ApiContext;
   state = {
-    name: ''
+    name: '',
+    error: false
   };
 
   handleSubmit = async (e) => {
     e.preventDefault();
-
     const { name } = this.state;
 
+    this.setState({ error: false });
     if (!name || name.trim() === '') {
-      return;
+      return this.setState({ error: true });
     }
 
     try {
@@ -34,6 +35,7 @@ class AddFolderForm extends React.Component {
         ...this.context,
         folders: { folders: [...folders, newFolder] }
       };
+      this.setState({ error: false });
       return this.props.history.push(`/folder/${newFolder.id}`);
     } catch (err) {
       console.error(err);
@@ -42,7 +44,7 @@ class AddFolderForm extends React.Component {
 
   render() {
     const { handleSubmit } = this;
-    const { name } = this.state;
+    const { name, error } = this.state;
 
     return (
       <StyledForm onSubmit={handleSubmit}>
@@ -54,6 +56,11 @@ class AddFolderForm extends React.Component {
           value={name}
           onChange={(e) => this.setState({ name: e.target.value })}
         />
+        {error ? (
+          <p className='nes-text is-error error'>
+            Please enter a valid folder name
+          </p>
+        ) : null}
         <ButtonDiv>
           <button
             type='button'
@@ -82,6 +89,11 @@ const ButtonDiv = styled.div`
 const StyledForm = styled.form`
   display: flex;
   flex-direction: column;
+
+  .error {
+    font-size: 1.3rem;
+  }
+
   input {
     height: 4.8rem;
   }

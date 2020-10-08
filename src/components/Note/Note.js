@@ -26,8 +26,7 @@ class Note extends React.Component {
   handleClick = async (id) => {
     try {
       const { deleteNote, notes } = this.context;
-      // uncomment when we're using a server
-      // await fetch(`http://localhost:9090/notes/${id}`, { method: 'DELETE' });
+      await fetch(`http://localhost:9090/notes/${id}`, { method: 'DELETE' });
       deleteNote(id);
       this.context = { notes: notes.filter((note) => note.id !== id) };
       return this.props.history.goBack();

@@ -10,10 +10,12 @@ class Main extends React.Component {
   handleClick = async (id) => {
     try {
       const { deleteNote, notes } = this.context;
-      // uncomment when we're using a server
-      // await fetch(`http://localhost:9090/notes/${id}`, { method: 'DELETE' });
+      await fetch(`http://localhost:9090/notes/${id}`, { method: 'DELETE' });
       deleteNote(id);
-      return (this.context = { notes: notes.filter((note) => note.id !== id) });
+      return (this.context = {
+        ...this.context,
+        notes: notes.filter((note) => note.id !== id)
+      });
     } catch (err) {
       console.error(err);
     }
@@ -29,7 +31,10 @@ class Main extends React.Component {
       <>
         <div>
           <StyledButtonDiv>
-            <button className='nes-btn'>
+            <button
+              className='nes-btn'
+              onClick={() => this.props.history.push('/add-note')}
+            >
               <i className='fas fa-plus'></i> Note
             </button>
           </StyledButtonDiv>
@@ -61,7 +66,10 @@ class Main extends React.Component {
       <>
         <div>
           <StyledButtonDiv>
-            <button className='nes-btn'>
+            <button
+              className='nes-btn'
+              onClick={() => this.props.history.push('/add-note')}
+            >
               <i className='fas fa-plus'></i> Note
             </button>
           </StyledButtonDiv>

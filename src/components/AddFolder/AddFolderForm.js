@@ -62,7 +62,7 @@ class AddFolderForm extends React.Component {
             Cancel
           </button>
           <button type='submit' className='nes-btn is-success'>
-            Create Note
+            Create Folder
           </button>
         </ButtonDiv>
       </StyledForm>

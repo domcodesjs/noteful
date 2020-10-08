@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link, withRouter } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import ApiContext from '../../ApiContext';
 
@@ -88,5 +89,11 @@ const StyledAside = styled.aside`
     }
   }
 `;
+
+Sidebar.propTypes = {
+  folderId: PropTypes.string,
+  history: PropTypes.object.isRequired,
+  match: PropTypes.object.isRequired
+};
 
 export default withRouter(Sidebar);

@@ -1,5 +1,6 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import ApiContext from '../../ApiContext';
 
@@ -94,5 +95,9 @@ const StyledForm = styled.form`
     height: 4.8rem;
   }
 `;
+
+AddFolderForm.propTypes = {
+  history: PropTypes.object.isRequired
+};
 
 export default withRouter(AddFolderForm);

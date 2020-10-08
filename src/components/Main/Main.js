@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link, withRouter } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import { format } from 'date-fns';
 import styled from 'styled-components';
 import ApiContext from '../../ApiContext';
@@ -140,5 +141,11 @@ const StyledSection = styled.section`
     }
   }
 `;
+
+Main.propTypes = {
+  folderId: PropTypes.string,
+  match: PropTypes.object.isRequired,
+  history: PropTypes.object.isRequired
+};
 
 export default withRouter(Main);

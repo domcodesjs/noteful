@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import Main from '../Main/Main';
 import Sidebar from '../Sidebar/Sidebar';
@@ -48,5 +49,10 @@ const StyledSection = styled.section`
     color: inherit;
   }
 `;
+
+Folder.propTypes = {
+  history: PropTypes.object.isRequired,
+  match: PropTypes.object.isRequired
+};
 
 export default Folder;

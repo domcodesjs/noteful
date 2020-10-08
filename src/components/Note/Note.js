@@ -1,5 +1,6 @@
 import React from 'react';
 import { format } from 'date-fns';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import ApiContext from '../../ApiContext';
 
@@ -81,5 +82,10 @@ const StyledSection = styled.section`
   display: grid;
   grid-template-columns: 20% 80%;
 `;
+
+Note.propTypes = {
+  history: PropTypes.object.isRequired,
+  match: PropTypes.object.isRequired
+};
 
 export default Note;

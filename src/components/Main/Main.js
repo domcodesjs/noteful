@@ -45,7 +45,7 @@ class Main extends React.Component {
             {notes.map((note, idx) => (
               <div key={idx}>
                 <Link to={{ pathname: `/note/${note.id}` }}>
-                  <h3>{note.name}</h3>
+                  <h2>{note.name}</h2>
                 </Link>
                 <div>
                   <p>

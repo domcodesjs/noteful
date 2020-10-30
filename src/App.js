@@ -15,7 +15,8 @@ import AddNote from './components/AddNote/AddNote';
 import AddFolder from './components/AddFolder/AddFolder';
 import ErrorBoundary from './components/ErrorBoundary/ErrorBoundary';
 
-const API_URL = 'https://noteful-json-server.vercel.app';
+// const API_URL = 'https://noteful-json-server.vercel.app';
+const API_URL = 'http://localhost:5000/api';
 
 class App extends React.Component {
   state = {
@@ -35,8 +36,8 @@ class App extends React.Component {
     async function getFolders() {
       try {
         const res = await fetch(`${API_URL}/folders`);
-        const data = res.json();
-        return data;
+        const data = await res.json();
+        return data.folders;
       } catch (err) {
         console.error(err);
       }
@@ -45,8 +46,8 @@ class App extends React.Component {
     async function getNotes() {
       try {
         const res = await fetch(`${API_URL}/notes`);
-        const data = res.json();
-        return data;
+        const data = await res.json();
+        return data.notes;
       } catch (err) {
         console.error(err);
       }

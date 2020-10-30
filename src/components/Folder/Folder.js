@@ -14,7 +14,12 @@ class Folder extends React.Component {
     const { path } = this.props.match;
     const { folders } = this.context;
 
-    if (!folders.some((folder) => folder.id === folderId) && path !== '/') {
+    console.log(folders);
+
+    if (
+      !folders.some((folder) => folder.id === parseInt(folderId)) &&
+      path !== '/'
+    ) {
       return history.push('/404');
     }
   }
@@ -24,8 +29,8 @@ class Folder extends React.Component {
 
     return (
       <StyledSection>
-        <Sidebar folderId={folderId}></Sidebar>
-        <Main folderId={folderId}></Main>
+        <Sidebar folderId={parseInt(folderId)}></Sidebar>
+        <Main folderId={parseInt(folderId)}></Main>
       </StyledSection>
     );
   }

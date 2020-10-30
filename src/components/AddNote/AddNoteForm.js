@@ -36,18 +36,22 @@ class AddNoteForm extends React.Component {
 
     try {
       const { addNote, notes } = this.context;
-      const res = await fetch('https://noteful-json-server.vercel.app/notes', {
+      const res = await fetch('http://localhost:5000/api/notes', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ name, content, folderId, modified: new Date() })
+        body: JSON.stringify({
+          note_name: name,
+          note_content: content,
+          folder: parseInt(folderId)
+        })
       });
       const newNote = await res.json();
-      addNote(newNote);
+      addNote(newNote.note);
       this.context = {
         ...this.context,
-        notes: { notes: [...notes, newNote] }
+        notes: { notes: [...notes, newNote.note] }
       };
       this.setState({
         nameError: false,
@@ -105,8 +109,8 @@ class AddNoteForm extends React.Component {
           >
             <option disabled value={''}></option>
             {folders.map((folder) => (
-              <option key={folder.id} value={folder.id}>
-                {folder.name}
+              <option key={folder.id} value={parseInt(folder.id)}>
+                {folder.folder_name}
               </option>
             ))}
           </select>

@@ -15,7 +15,8 @@ class Note extends React.Component {
     const { notes } = this.context;
     const { history } = this.props;
     const { noteId } = this.props.match.params;
-    const note = notes.find((note) => note.id === noteId);
+
+    const note = notes.find((note) => note.id === parseInt(noteId));
 
     if (!note) {
       return history.push('/404');
@@ -27,7 +28,7 @@ class Note extends React.Component {
   handleClick = async (id) => {
     try {
       const { deleteNote, notes } = this.context;
-      await fetch(`https://noteful-json-server.vercel.app/notes/${id}`, {
+      await fetch(`http://localhost:5000/api/notes/${id}`, {
         method: 'DELETE'
       });
       deleteNote(id);
@@ -54,7 +55,7 @@ class Note extends React.Component {
         </aside>
         <main>
           <div className='nes-container'>
-            <h1>{note.name}</h1>
+            <h1>{note.note_name}</h1>
             <p>
               Last modified: {format(Date.parse(note.modified), 'dd MMM yyyy')}
             </p>
@@ -66,7 +67,7 @@ class Note extends React.Component {
               Delete
             </button>
           </div>
-          <p className='note-content'>{note.content}</p>
+          <p className='note-content'>{note.note_content}</p>
         </main>
       </StyledSection>
     );

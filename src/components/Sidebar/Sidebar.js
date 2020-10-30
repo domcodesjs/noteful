@@ -44,7 +44,7 @@ class Sidebar extends React.Component {
               <li key={folder.id}>
                 <Link to={{ pathname: `/folder/${folder.id}` }}>
                   {this.folderIcon(folder.id)}
-                  {folder.name}
+                  {folder.folder_name}
                 </Link>
               </li>
             ))}
@@ -91,7 +91,7 @@ const StyledAside = styled.aside`
 `;
 
 Sidebar.propTypes = {
-  folderId: PropTypes.string,
+  folderId: PropTypes.number,
   history: PropTypes.object.isRequired,
   match: PropTypes.object.isRequired
 };

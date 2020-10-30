@@ -11,7 +11,7 @@ class Main extends React.Component {
   handleClick = async (id) => {
     try {
       const { deleteNote, notes } = this.context;
-      await fetch(`https://noteful-json-server.vercel.app/notes/${id}`, {
+      await fetch(`http://localhost:5000/api/notes/${id}`, {
         method: 'DELETE'
       });
       deleteNote(id);
@@ -45,7 +45,7 @@ class Main extends React.Component {
             {notes.map((note, idx) => (
               <div key={idx}>
                 <Link to={{ pathname: `/note/${note.id}` }}>
-                  <h2>{note.name}</h2>
+                  <h2>{note.note_name}</h2>
                 </Link>
                 <div>
                   <p>
@@ -78,11 +78,11 @@ class Main extends React.Component {
           </StyledButtonDiv>
           <StyledSection>
             {notes
-              .filter((note) => note.folderId === folderId)
+              .filter((note) => note.folder === folderId)
               .map((note, idx) => (
                 <div key={idx}>
                   <Link to={{ pathname: `/note/${note.id}` }}>
-                    <h3>{note.name}</h3>
+                    <h3>{note.note_name}</h3>
                   </Link>
                   <div>
                     <p>
@@ -145,7 +145,7 @@ const StyledSection = styled.section`
 `;
 
 Main.propTypes = {
-  folderId: PropTypes.string,
+  folderId: PropTypes.number,
   match: PropTypes.object.isRequired,
   history: PropTypes.object.isRequired
 };

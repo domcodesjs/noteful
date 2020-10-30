@@ -28,7 +28,7 @@ class Note extends React.Component {
   handleClick = async (id) => {
     try {
       const { deleteNote, notes } = this.context;
-      await fetch(`http://localhost:5000/api/notes/${id}`, {
+      await fetch(`https://fast-headland-28451.herokuapp.com/api/notes/${id}`, {
         method: 'DELETE'
       });
       deleteNote(id);

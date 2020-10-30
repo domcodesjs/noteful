@@ -16,7 +16,7 @@ import AddFolder from './components/AddFolder/AddFolder';
 import ErrorBoundary from './components/ErrorBoundary/ErrorBoundary';
 
 // const API_URL = 'https://noteful-json-server.vercel.app';
-const API_URL = 'http://localhost:5000/api';
+const API_URL = 'https://fast-headland-28451.herokuapp.com/api';
 
 class App extends React.Component {
   state = {

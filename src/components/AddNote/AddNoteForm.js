@@ -36,17 +36,20 @@ class AddNoteForm extends React.Component {
 
     try {
       const { addNote, notes } = this.context;
-      const res = await fetch('http://localhost:5000/api/notes', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          note_name: name,
-          note_content: content,
-          folder: parseInt(folderId)
-        })
-      });
+      const res = await fetch(
+        'https://fast-headland-28451.herokuapp.com/api/notes',
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            note_name: name,
+            note_content: content,
+            folder: parseInt(folderId)
+          })
+        }
+      );
       const newNote = await res.json();
       addNote(newNote.note);
       this.context = {

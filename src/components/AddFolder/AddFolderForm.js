@@ -22,13 +22,16 @@ class AddFolderForm extends React.Component {
 
     try {
       const { addFolder, folders } = this.context;
-      const res = await fetch('http://localhost:5000/api/folders', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ folder_name: name })
-      });
+      const res = await fetch(
+        'https://fast-headland-28451.herokuapp.com/api/folders',
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ folder_name: name })
+        }
+      );
       const newFolder = await res.json();
       addFolder(newFolder.folder);
       this.context = {
